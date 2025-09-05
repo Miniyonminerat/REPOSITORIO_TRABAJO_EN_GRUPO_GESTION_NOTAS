@@ -1,145 +1,202 @@
-#-------------------- GESTION DE NOTAS --------------------#
+# Gestión de Notas 
+# ---------------------------------------------------------------------
+# Este programa maneja el registro de estudiantes, cálculo de promedios,
+# mostrar aprobados/reprobados y generar un informe. 
 
-estudiantes_lista= [] #Creamos una lista para guardar los datos de los estudiantes
+# Se usa una lista de diccionarios para almacenar todos los datos de cada estudiante.
+# Cada estudiante tiene: nombre, documento, asignatura y una lista de 3 notas.
 
-notas= [] #Creamos otra lista para guarfar las notas de los estudiantes
+# Lista donde se guardan todos los estudiantes
+# Tipo: list (lista)
+# Cada usuario o estudiante se agregara como diccionario para colocarlo en la lista volviendola lista de diccionarios
+# Ejemplo: {"nombre":"Ana", "documento":12345, "asignatura":"Matemáticas", "notas":[4.0,3.5,4.2]} Asi quedaria un ejemplo
+estudiantes = []
 
+# Variable de control para el menú principal 
+# Tipo: int (entero)
+# Mientras sea diferente de 6, el programa seguirá corriendo de lo contrario pues el programa dejara de correr y no seguira el bucle
+opcion = 0
 
-Escoger= 0 #Creamos una condicion para que el while pueda entrar
+# Bucle principal del programa es el que inicia el menu siempre que el usuario escoja una opcion del 1 al 5 volvera a este menu
+while opcion != 6:
+    # Menú principal que se muestra al usuario
+    print("\n     SISTEMA GESTIÓN DE NOTAS\n")
+    print(" 1. Registrar Estudiante")
+    print(" 2. Mostrar lista estudiantes")
+    print(" 3. Calcular promedios")
+    print(" 4. Mostrar aprobados y reprobados")
+    print(" 5. Generar informe de resultados")
+    print(" 6. Salir\n")
 
+    # Se le pide al usuario escoger una opción
+    # int() convierte el texto ingresado en número entero asi la persona no escoje una palabra y si o si escoja un numero 
+    opcion = int(input("Ingrese una opción: "))
 
-while Escoger != 6: #Usamos while para que cada vez que termine de el proceso que se escogio vuelva al menu de inicio se uso != si el numero es diferente a 6 inicia el bucle se cumple la funcion pero si al escoger las opciones el escoje 6 no se cumple la funcion y el bucle termina 
+    # ---------------- OPCIÓN 1: REGISTRAR ESTUDIANTE ----------------
+    if opcion == 1: #Se usa una condicion que dice "si el usuario escoje la opcion 1 se ejecutara esta parte del programa "
+        # Variable para controlar si el usuario quiere seguir registrando
+        continuar = "si"
+        while continuar == "si":
+            # Se pide el nombre (str = cadena de texto)
+            nombre = input("Ingrese nombre del estudiante: ")
 
-    print("     SISTEMA GESTION DE NOTAS\n 1. Registrar Estudiante\n 2. Mostrar lista estudiante\n 3. Calcular promedios\n 4. Mostrar aprobados y reprobados\n 5 Generar informe de resultados\n 6 Salir ") # Creamos el menu de inicio que vera el usuario apenas ejecute el codigo con saltos de lineas para facilitar la escritura del codigo y la agilidez 
+            # Se pide el documento (int = número entero)
+            documento = int(input("Ingrese documento del estudiante: "))
 
-    Escoger= int(input("Ingrese una opcion: ")) # se le pide al usuario colocar una opcion que este en el menu en el caso de colocar otra opcion saldra error
+            # Se pide la asignatura (str = cadena de texto)
+            asignatura = input("Ingrese asignatura del estudiante: ")
 
-    # Comenzamos con el registro de estudiantes la opcion 1 
+            # Se piden tres notas (float = número decimal)
+            nota1 = float(input("Ingrese nota 1: "))
+            nota2 = float(input("Ingrese nota 2: "))
+            nota3 = float(input("Ingrese nota 3: "))
 
-    if Escoger == 1: # si la opcion es igual a 
+            # Se crea un diccionario para guardar todos los datos juntos
+            estudiante = {
+                "nombre": nombre,          # clave 'nombre' con valor str
+                "documento": documento,    # clave 'documento' con valor int
+                "asignatura": asignatura,  # clave 'asignatura' con valor str
+                "notas": [nota1, nota2, nota3] # clave 'notas' con valor list de floats
+            }
 
-        while True: # Se crea un bucle infinito 
+            # Se agrega el diccionario a la lista principal
+            estudiantes.append(estudiante)
+            print("Estudiante registrado con éxito")
 
-            nombre= input("Ingrese nombre del estudiante que registrara: ") 
+            # Se pregunta si quiere registrar otro estudiante
+            continuar = input("¿Quieres ingresar otro estudiante? (si/no): ").lower()
 
-            documento= int(input("Ingrese documento del estudiante: "))
-
-            asignatura= input("Ingrese asignatura del estudiante: ")
-             # Se crean variables para pedirle al usuario nombre documento y asignatura aqui se usan 2 clases input y int
-            estudiantes_lista.append((nombre,documento,asignatura)) # Se mete todo ala lista de el estudiante usarndo el .append que es un metodo en python 
-            nota_1= float(input("Ingrese nota 1 del estudiante: "))
-            nota_2= float(input("Ingrese nota 2 del estudiante: "))
-            nota_3= float(input("Ingrese nota 3 del estudiante: "))# Se pide 3 notas al usuario para agregarlos a una lista float int y input son clases aqui se usa en todo solo 2 clases float y input
-            notas.append ([nota_1,nota_2,nota_3])# se agregan a otra lista aparte de el estudiante y 
-
-            print("El estudiante a sido registrado con exito") # Si el estudiante se registra correctamente al usuario se le imprimira esto si comete un error en lo que se pide le saldra error antes de llegar aca
-
-            otro= input("¿Quieres ingresar otro estudiante? (si/no): ") # se crea una vaiable  para preguntarle al usuario si quiere agregar otro estudiante para que no tenga que hacer el proceso de volver al menu y escoger 1 aqui mismo se le dice si quiere continuar o no
-
-            if otro.lower() != "si": # se usa condicional if aqui por que este if es una condicion independientes osea que este if no depende del de arriba si no que este es aparte 
-                
-                break # y si el usuario coloca "si " no cumple la condicion y repetiria el bucle y pediria datos denuevo por que se le esta diciendo SI LA VARIABLE OTRO SE CAMIA A MINUSCULA Y ES DIFERENTE A SI SE ROMPE 
-    elif Escoger == 2:
-        if len(estudiantes_lista)== 0: #en esta parte  si no se encuentran valores en la lista  dara el mensaje de abajo 
-            print("\n No se encunetran estudintes registrados por el momento \n ")
+    # ---------------- OPCIÓN 2: MOSTRAR LISTA DE ESTUDIANTES ----------------
+    elif opcion == 2:
+        # Si no hay estudiantes registrados
+        if len(estudiantes) == 0:
+            print("\nNo se encuentran estudiantes registrados.\n")
         else:
+            print("\n    LISTA DE ESTUDIANTES\n")
+            i = 0 # Variable entera que sirve como contador en el bucle
+            # Recorremos toda la lista de estudiantes
+            while i < len(estudiantes):
+                est = estudiantes[i] # Diccionario de un estudiante en la posición i
+                print(f"Nombre: {est['nombre']} | Documento: {est['documento']} | Asignatura: {est['asignatura']}")
+                i += 1 # Incremento del contador para pasar al siguiente estudiante
 
-            print("    LISTA ESTUDIANTE ")
-            i=0
-            while i < len(estudiantes_lista):
+    # ---------------- OPCIÓN 3: CALCULAR PROMEDIOS ----------------
+    elif opcion == 3:
+        # Si no hay datos para calcular 
+        if len(estudiantes) == 0:
+            print("\nNo hay datos para calcular.\n")
+        else: # De lo contrario empezaria los datos del promedio de los estudiantes
+            print("\n    PROMEDIOS DE ESTUDIANTES\n")
+            i = 0
+            while i < len(estudiantes): 
+                notas = estudiantes[i]["notas"] # Lista de 3 floats
+                # Fórmula de promedio ponderado: 30%, 30%, 40%
+                promedio = notas[0]*0.30 + notas[1]*0.30 + notas[2]*0.40
+                print(f"{estudiantes[i]['nombre']} - Promedio: {promedio:.2f}")
+                i += 1
 
-                llama=estudiantes_lista[i] #llama a la lista y el i cual de todas por ejemplo si i = 2 entonces llama la lista 2 y lo que haya dentro de esta ya que estan anidadas  
-
-                print(f"estudiante - {llama[0]} documento - {llama[1]} asignatura - {llama[2]}") #con lo anterior los [] despues del "llama" indica la posicion que llama dentro de la lista 
-
-                i+=1
-                print() #deja un espacio para que no queden todos amontonados (estetica)
-                
-                
-    elif Escoger == 3: #si selecciona la opcion 3 se hara el siguiente proceso 
-        if len(estudiantes_lista) == 0: #verifica si hay un estudiante  agregado 
-
-            print("No hay datos para calcular.\n")
-
+      # ---------------- OPCIÓN 4: MOSTRAR APROBADOS Y REPROBADOS ----------------
+    elif opcion == 4:
+        # Primero revisamos si la lista de estudiantes está vacía
+        # len(estudiantes) devuelve la cantidad de estudiantes registrados
+        if len(estudiantes) == 0:
+            print("\nNo hay estudiantes para calcular.\n")
         else:
+            # Si hay al menos un estudiante, mostramos el título de esta sección
+            print("\n    REPROBADOS Y APROBADOS\n")
 
-            print("    PROMEDIO ESTUDIANTE")
-            i = 0 #en esta la "i" va agragando notas a su variable 
+            # Creamos un contador i que empieza en 0
+            # Este contador nos permitirá recorrer la lista estudiante por estudiante
+            i = 0
 
-            while i < len(estudiantes_lista): #mientras esta "i" sea menor al numero de estunadies en la lista se hara el siguiente proceso
+            # Mientras i sea menor que la cantidad de estudiantes, seguimos en el bucle
+            while i < len(estudiantes):
+                # Guardamos en la variable notas la lista de 3 notas del estudiante actual
+                # Esto lo hacemos accediendo a la clave "notas" dentro del diccionario del estudiante
+                notas = estudiantes[i]["notas"]
 
-                nota_1, nota_2, nota_3 = notas[i] # las nota 1 , 2 , 3 se agregan con el "i" a la lista de notas
+                # Calculamos el promedio ponderado (con porcentajes):
+                # nota1 * 30% + nota2 * 30% + nota3 * 40%
+                promedio = notas[0]*0.30 + notas[1]*0.30 + notas[2]*0.40
 
-                promedio= (nota_1 * 0.30 ) + (nota_2 * 0.30) + (nota_3 * 0.40)  #operacion para sacar el promedio
-                print (f"{estudiantes_lista[i][0]} - Promedio: {promedio}") #se muestra el nombre del estudinate seguido del promedio")
-
-                i+=1
-
-                print()
-
-
-    elif Escoger == 4:  # si la opción seleccionada es 4, se entra a mostrar aprobados y reprobados
-
-        if len(estudiantes_lista) == 0:  # verifica si no hay estudiantes registrados
-            print("\nNo hay estudiantes para calcular\n")  # mensaje si la lista está vacía
-
-        else:
-            print("\n    REPROBADOS Y APROBADOS\n")  # título de la sección
-
-            i = 0  # inicializa el índice para recorrer las listas paralelas (estudiantes_lista y notas)
-            
-            while i < len(estudiantes_lista):  # recorre mientras 'i' sea menor al número de estudiantes
-                
-                # toma las tres notas del estudiante 'i' desde la lista 'notas'
-                nota_1, nota_2, nota_3 = notas[i]
-                
-                # calcula el promedio ponderado: 30% nota 1, 30% nota 2, 40% nota 3
-                promedio = (nota_1 * 0.30) + (nota_2 * 0.30) + (nota_3 * 0.40)
-                
-                if promedio >= 3.0:  # condición de aprobación: promedio mayor o igual a 3.0
-                    # imprime: Nombre - Promedio - Aprobado
-                    print(f"{estudiantes_lista[i][0]} - {promedio} - Aprobado\n")
+                # Verificamos si el promedio es mayor o igual a 3.0
+                # Si es así, significa que el estudiante aprobó
+                if promedio >= 3.0:
+                    # Imprimimos el nombre, el promedio con 2 decimales y la palabra "Aprobado"
+                    print(f"{estudiantes[i]['nombre']} - {promedio:.2f} - Aprobado")
                 else:
-                    # imprime: Nombre - Promedio - Reprobado
-                    # (corrección: quitar el operador '-' entre cadenas y usar un único f-string)
-                    print(f"{estudiantes_lista[i][0]} - {promedio} - Reprobado\n")
-                    
-                i += 1  # avanza al siguiente estudiante
-                
-                
-    elif Escoger ==5:
-        if len(estudiantes_lista)==0: #si en la variable de estudiantes no se encuentran valores mostra el mensaje 
+                    # Si no cumple la condición anterior, automáticamente es "Reprobado"
+                    print(f"{estudiantes[i]['nombre']} - {promedio:.2f} - Reprobado")
 
-            print("\n No se encuentran datos registrados de estudiantes \n porfavor ingrese datos de estudiantes ")
+                # Incrementamos el contador en +1 para pasar al siguiente estudiante
+                i += 1
+
+    # ---------------- OPCIÓN 5: GENERAR INFORME FINAL ----------------
+    elif opcion == 5:
+        if len(estudiantes) == 0:
+            print("\nNo se encuentran datos registrados de estudiantes.\n")
         else:
-            print("\n Informe final de los estudiantes")
-            i=0
-            while i< len(estudiantes_lista):
-                nota_1, nota_2, nota_3 = notas[i] # las nota 1 , 2 , 3 se agregan con el "i" a la lista de notas 
-                promedio= (nota_1*0.30) + (nota_2*0.30) + (nota_3*0.40) #operacion para sacar el promedio
-                if promedio >=3.0: #si se cumple la condicion y el promedio es mayor o igual a 3.0 entonces dira aprobo 
-                    print(f"el estudiante - {estudiantes_lista[i][0]} aprobo la materian con un {promedio}")
-                else: #de lo contrario si el promedio es menor a 3.0 dira que no aprovo 
-                    print(f"el estudiante {estudiantes_lista[i][0]} reprobo con un {promedio}")
-                i+=1
-                
-    elif Escoger == 6: #si la opcion escogida es 6 entra en este bloque
-        confirmacion2=input("Ingresa (SALIR) para salir totalmente o (VOLVER) para reiniciar el programa: ").lower () 
-        # aquí se le pide al usuario que confirme si quiere salir del programa totalmente o volver al menú principal
-        # .lower() convierte todo lo que escriba el usuario en minúsculas, así no importa si escribe "SALIR", "salir" o "Salir"
+            total = len(estudiantes) # cantidad total de estudiantes
+            aprobados = 0            # contador de aprobados
+            reprobados = 0           # contador de reprobados
+            suma_promedios = 0.0     # acumulador de todos los promedios (float)
 
-        if confirmacion2 == "salir": # se evalúa si la respuesta del usuario fue "salir"
-            print("HAS SALIDO TOTALMENTE DEL PROGRAMA") # si la condición se cumple se imprime el mensaje de salida
-            # como la condición del while es while Escoger != 6, al haber elegido 6 ya no se repite el bucle
-            # entonces el programa termina completamente
-       
+            print("\nInforme final de los estudiantes:\n")
+            i = 0
+            while i < len(estudiantes):
+                notas = estudiantes[i]["notas"]
+                promedio = notas[0]*0.30 + notas[1]*0.30 + notas[2]*0.40
+                if promedio >= 3.0:
+                    estado = "Aprobado"
+                    aprobados += 1
+                else:
+                    estado = "Reprobado"
+                    reprobados += 1
+                suma_promedios += promedio
+                print(f"El estudiante {estudiantes[i]['nombre']} ({estudiantes[i]['asignatura']}) - Promedio: {promedio:.2f} -> {estado}")
+                i += 1
+
+            promedio_general = suma_promedios / total
+
+            print("\n--- Resumen ---")
+            print(f"Total estudiantes: {total}")
+            print(f"Aprobados: {aprobados}")
+            print(f"Reprobados: {reprobados}")
+            print(f"Promedio general de la clase: {promedio_general:.2f}\n")
+
+    # ---------------- OPCIÓN 6: SALIR ----------------
+    elif opcion == 6:
+        confirmacion = input("Ingresa (SALIR) para salir totalmente o (VOLVER) para reiniciar el programa: ").lower()
+        if confirmacion == "salir":
+            print("HAS SALIDO TOTALMENTE DEL PROGRAMA")
+        else:
+            # Si el usuario escribe VOLVER, reiniciamos la variable opcion a 0
+            opcion = 0
+
                     
                    
 
             
+# ------------ PREGUNTAS QUE PUEDEN SALIR --------------#
+# ¿POR QUE USAMOS EN LA OPCION 1 UN WHILE CONTINUAR == "SI"?
+# 
+# POR QUE SI USAMOS WHILE TRUE ESTARIA EN UN BUCLE INFINITO DE AGREGAR UNA PERSONA O UN ESTUDIANTE ASI NUNCA TERMINARIA DE REGISTRAR 
+
+# ¿POR QUE EN LA OPCION 1 USAMOS AL FINAL .LOWER?
+# 
+# EL PUNTO LOWER SIRVE PARA VOLVER TODO MINUSCULA EN EL CASO QUE LA PERSONA AL COLOCAR LA OPCION "SI" EN MAYUSCULA EL PROGRAMA LO LEERA COMO "si"
+
+# ¿POR QUE USAMOS LEN EN LA OPCION 2?
+
+# EL LEN SIRVE PARA QUE EL PROGRAMA AL LEER UN DATO LO PASE A NUMERO UN EJEMPLO SERIA QUE LEA NOMBRE DOCUMENTO Y ASIGNATURA LO QUE EL RECOREERIA CON LEN SERIA 3 DATOS OSEA LOS PASA A NUMEROS VE DATO POR DATO Y LOS PASA A NUMEROS POR ESO SI LOS DATOS SON IGUAL A 0 NO HAY ESTUDIANTES Y SIN SON  DIFERENTE A 0 SI HAY ESTUDIANTES Y EMPIEZA EL SEGUNDO BUCLE
+
+# ¿ QUE ES i EN LA OPCION 2?
+
+# ES UN CONTADOR QUE SIRVE PARA COLOCARLE AUTOMATICAMENTE UN ORDEN AL  ESTUDIANTE POR DECIRLO ASI DEL ESTUDIANTE POR EJEMPLO SI HAY 3 ESTUDIANTES LO QUE HARIA EL CONTADOR ES COLOCARLE UN ORDEN A LOS ESTUDIANTES
+
+# ¿ QUE ES .2f EN LA OPCION 3?
                 
-                
-            
+# ES LA CANTIDAD DE DECIMALES QUE QUIERE QUE COLOQUES EN EL CODIGO POR EJEMPLO ACA ESTAMOS DICIENDO QUE AL PROMEDIO LO APROXIME Y COLOQUE 2 DECIMALES             
 
 
         
